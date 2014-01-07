@@ -7,8 +7,42 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+    <nav class="uk-navbar">
+        <div class="uk-container uk-container-center">
+            <%= link_to "Galex", root_path, class: 'uk-navbar-brand' %>
+            <% if user_signed? %>
+            <ul class="uk-navbar-nav">
+                <li><a href="#">Repository</a></li>
+                <li><a href="#">Users</a></li>
+                <li class="uk-parent" data-uk-dropdown>
+                    <a href>New <i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-navbar">
+                        <ul class="uk-nav uk-nav-navbar">
+                            <li><a href="#">Upload</a></li>
+                            <li><a href="#">Write now</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="uk-navbar-flip">
+            <div class="uk-navbar-content">
+                <form action="" class="uk-search" data-uk-search="{source: 'my-results.json'}">
+                    <input type="search" class="uk-search-field" placeholder="Search..." />
+                    <button class="uk-search-close" type="reset"></button>
+                </form>
+            </div>
+        </div>
+        </div>
+        <% end %>
+    </nav>
+    <div class="uk-container uk-container-center uk-margin-top">
+        <% flash.keys.each do |k| %>
+        <div class="uk-alert uk-alert-<%= flash_class(k) %>" data-uk-alert>
+            <a href class="uk-alert-close uk-close"></a>
+            <p><%= flash[k] %></p>
+        </div>
+        <% end %>
+        <%= yield %>
+    </div>
 </body>
 </html>

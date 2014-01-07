@@ -1,0 +1,12 @@
+<% if model.errors.any? %>
+<div class="uk-alert uk-alert-large uk-alert-danger">
+    <a href="" class="uk-alert-close uk-close"></a>
+    <h2>There is one or more errors on your form.</h2>
+    <p>Please refer to the list below:</p>
+    <ul class="uk-margin-top-remove">
+        <% model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>

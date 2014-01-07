@@ -1,0 +1,21 @@
+<h1>Login</h1>
+<%= render partial: 'partials/form_errors', locals: { model: @user_session }%>
+<%= form_for(@user_session, html: { class: 'uk-form uk-form-stacked' }) do |f| %>
+    <div class="uk-form-row">
+        <%= f.label :username, class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+            <%= f.text_field :username, placeholder: 'Please provide your username', class: 'uk-form-large uk-form-width-large' %>        
+        </div>
+    </div>
+    
+    <div class="uk-form-row">
+        <%= f.label :password, class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+            <%= f.password_field :password, placeholder: 'Password', class: 'uk-form-large uk-form-width-large' %>
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <%= f.submit 'Login', class: 'uk-button uk-button-large uk-button-primary'%>
+        <%= link_to 'Forgot your password?', '#', class: 'uk-button uk-button-link' %>
+    </div>
+<% end %>
