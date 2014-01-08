@@ -8,6 +8,24 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email, case_sensitive: false
   before_validation :ensure_downcase
   
+  has_many :documents
+  has_many :reads
+  has_many :read_documents, through: :reads, source: :document
+  
+  def unread_documents
+    Document.where.not(id: read_documents.pluck(:id))
+  end
+  
+  def has_read? document
+    if document.kind_of? Document
+      unread_documents.pluck(:id).exclude? document.id
+    elsif document.kind_of? Integer
+      unread_documents.pluck(:id).exclude? document
+    else
+      false
+    end
+  end
+  
   def pretty_name
     data = full_name.split(' ')
     "#{data[0]} #{data[1][0]}."
