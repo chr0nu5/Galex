@@ -1,0 +1,21 @@
+<div class="uk-clearfix">
+    <div class="uk-float-left">
+        <h1>Searching for '<%= @term %>'</h1>
+    </div>
+    <div class="uk-float-right">
+        <small><%= "#{pluralize(@results.length, 'result')}" %></small>
+    </div>
+</div>
+<hr />
+<% @results.each do |result| %>
+    <article class="uk-article">
+        <h1 class="uk-article-title"><%= result.title %></h1>
+        <p class="uk-article-meta">Uploaded by <%= link_to result.object.user.pretty_name, result.object.user %>, <%= time_ago_in_words(result.object.updated_at)%></p>
+        <p class="uk-article-lead"><%= result.text %></p>
+        <div class="uk-clearfix">
+            <div class="uk-float-right">
+                <a href="" class="uk-icon-button uk-icon-cloud-download"></a>
+            </div>
+        </div>
+    </article>
+<% end %>

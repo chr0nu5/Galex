@@ -12,8 +12,8 @@
             <%= link_to "Galex", root_path, class: 'uk-navbar-brand' %>
             <% if user_signed? %>
             <ul class="uk-navbar-nav">
-                <li><a href="#">Repository</a></li>
-                <li><a href="#">Users</a></li>
+                <li><%= link_to 'Repository', root_path %></li>
+                <li><%= link_to 'Users', users_path %></li>
                 <li class="uk-parent" data-uk-dropdown>
                     <a href>New <i class="uk-icon-caret-down"></i></a>
                     <div class="uk-dropdown uk-dropdown-navbar">
@@ -26,10 +26,6 @@
             </ul>
             <div class="uk-navbar-flip">
             <div class="uk-navbar-content">
-                <form action="" class="uk-search" data-uk-search="{source: 'my-results.json'}">
-                    <input type="search" class="uk-search-field" placeholder="Search..." />
-                    <button class="uk-search-close" type="reset"></button>
-                </form>
                 <ul class="uk-navbar-nav">
                     <li class="uk-parent" data-uk-dropdown>
                         <a href><%= current_user.pretty_name %> <i class="uk-icon-caret-down"></i></a> 
@@ -41,6 +37,11 @@
                         </div>
                     </li>
                 </ul>
+                <form class="uk-search" action="<%= search_path %>" method="post" data-uk-search="{source:'<%= search_path(format: :json) %> '}">
+                    <input class="uk-search-field" name="search" type="search" placeholder="Search..." value="<%= params[:search] %>">
+                    <button class="uk-search-close" type="reset"></button>
+                    <input name="authenticity_token" value=" <%= form_authenticity_token %>" type="hidden"> 
+                </form>
             </div>
         </div>
         </div>
