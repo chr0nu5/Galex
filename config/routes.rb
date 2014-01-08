@@ -5,6 +5,8 @@ Galex::Application.routes.draw do
   resources :users
   resource :search, only: :create
   match 'signout', to: 'user_sessions#destroy', via: :delete
+  match '/documents/:id/download', to: 'documents#download', via: :get, as: :download_document
+  match '/documents/:id/upload', to: 'documents#upload', via: :get, as: :upload_document
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

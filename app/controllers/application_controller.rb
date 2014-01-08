@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :user_signed?, :require_auth, :require_no_auth, :current_user
+  helper_method :user_signed?, :require_auth, :require_no_auth, :current_user, :current_user_owns?
   
   def user_signed?
     session[:user_id].present?
@@ -19,5 +19,9 @@ class ApplicationController < ActionController::Base
   
   def current_user
     User.find(session[:user_id])
+  end
+  
+  def current_user_owns? object
+    session[:user_id] == object.user_id
   end
 end

@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   
   private
   def ensure_downcase
-    @username.downcase!
-    @email.downcase!
+    self.username.downcase!
+    self.email.downcase!
   end
 end
