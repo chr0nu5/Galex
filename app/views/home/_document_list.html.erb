@@ -1,0 +1,27 @@
+<% if list.any? %>
+    <table class="uk-table uk-table-hover- uk-table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% list.each do |document| %>
+            <tr>
+                <td><%= link_to document.title, document %></td>
+                <td><%= link_to document.user.pretty_name, document.user %></td>
+                <td><span class="uk-text-<%= (current_user.has_read?(document) ? 'success' : 'danger') %>">
+                    <i class="uk-icon-<%=(current_user.has_read?(document) ? 'check-' : '') %>square"></i>
+                    <%= (current_user.has_read?(document) ? 'Read' : 'Unread') %>
+                </span></td>
+                <td><abbr title="<%= document.updated_at %>"><%= time_ago_in_words(document.updated_at) %></abbr>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <small>We didn't find anything to show up here.</small>
+<% end %>
