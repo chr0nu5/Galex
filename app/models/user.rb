@@ -8,7 +8,14 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email, case_sensitive: false
   before_validation :ensure_downcase
   
+  def pretty_name
+    data = full_name.split(' ')
+    "#{data[0]} #{data[1][0]}."
+  end
   
+  def first_name
+    "#{full_name.split(' ')[0]}"
+  end
   
   private
   def ensure_downcase

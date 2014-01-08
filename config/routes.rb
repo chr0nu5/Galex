@@ -1,6 +1,7 @@
 Galex::Application.routes.draw do
   root 'home#index'
   resources :user_sessions
+  match 'signout', to: 'user_sessions#destroy', via: :delete
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

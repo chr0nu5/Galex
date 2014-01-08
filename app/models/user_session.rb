@@ -20,8 +20,12 @@ class UserSession
     end
   end
   
+  def user
+    User.find_by(username: @username.downcase)
+  end
+  
   private
   def store(user)
-    session[:user_id] = user.id 
+    @session[:user_id] = user.id 
   end
 end
