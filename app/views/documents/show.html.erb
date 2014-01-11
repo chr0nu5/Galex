@@ -8,17 +8,19 @@
     </div>
     <div class="uk-float-right">
         <div class="uk-button-group">
-            <%= button_as_link download_document_path(@document), class: "uk-button uk-button-primary uk-button-large" do %>
+            <%= link_to download_document_path(@document), class: "uk-button uk-button-primary uk-button-large" do %>
                 <i class="uk-icon-cloud-download"></i> Download
             <% end %>
-            <%= button_as_link edit_document_path(@document), class: "uk-button uk-button-large", disabled: !current_user_owns?(@document) do %>
-                <i class="uk-icon-pencil"></i> Edit
-            <% end %>
-            <%= button_as_link document_path(@document), class: "uk-button uk-button-large uk-button-danger", disabled: !current_user_owns?(@document) do %>
-                <i class="uk-icon-trash-o"></i> Delete
-            <% end %>
-            <%= button_as_link upload_document_path(@document), class: "uk-button uk-button-large", disabled: !current_user_owns?(@document) do %>
-                <i class="uk-icon-cloud-upload"></i> Update            
+            <% if current_user_owns? @document %>
+                <%= link_to edit_document_path(@document), class: "uk-button uk-button-large" do %>
+                    <i class="uk-icon-pencil"></i> Edit
+                <% end %>
+                <%= link_to document_path(@document), class: "uk-button uk-button-large uk-button-danger", disabled: !current_user_owns?(@document), data: {confirm: 'You\'re about to remove a document from the whole repository. Do you want to continue?'}, method: :delete, action: :delete do %>
+                    <i class="uk-icon-trash-o"></i> Delete
+                    <% end %>
+                <%= link_to upload_document_path(@document), class: "uk-button uk-button-large"  do %>
+                    <i class="uk-icon-cloud-upload"></i> Update            
+                <% end %>
             <% end %>
         </div>
     </div>
