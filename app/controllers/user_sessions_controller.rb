@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
       redirect_to root_path, success: "Welcome back, #{@user_session.user.first_name}"
     else
       @user_session.errors.add(:base, "Invalid credentials.")
-      redirect_to root_path if @user_session.auth!
+      render :new
     end
   end
   
