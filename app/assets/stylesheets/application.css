@@ -11,5 +11,6 @@
  *= require_self
  *= require uikit.almost-flat 
  *= require codemirror
+ *= require uikit-markdownarea
  *= require_tree .
  */
