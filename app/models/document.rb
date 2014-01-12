@@ -62,12 +62,9 @@ class Document < ActiveRecord::Base
   end
   
   def set_document_format
-    puts "==== Setting document format ====\n"
     if self.file_changed? && !self.content_changed?
       self.format = File.extname(self.file.original_filename).split('.')[1] if self.file.present? && self.file.is_a?(ActionDispatch::Http::UploadedFile)
-      puts "==== Document format was auto-defined as #{self.format}, based on file mime type.\n\n"
     elsif !self.file_changed? && self.content_changed?
-      puts "==== Document format was defined as pdf since it was written using markdown\n\n"
       self.format = "pdf"
     elsif self.file_changed? && self.content_changed?
       raise ArgumentError, "Detected changes to self.file and self.content. Galex don't know which of them it will store!"
