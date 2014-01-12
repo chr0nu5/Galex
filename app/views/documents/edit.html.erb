@@ -1,0 +1,7 @@
+<h1>Editing document '<%= @document.title %>'</h1>
+<div class="uk-alert uk-alert-warning" data-uk-alert>
+    <a href="" class="uk-alert-close uk-close"></a>
+    <strong>Hey! Why can't I overwrite a document?</strong> Calm down! You can. Use the <a href="#">Update document</a> feature from the document's page and you're all set!
+</div>
+<%= render partial: 'partials/form_errors', locals: { model: @document }%>
+<%= render partial: 'form', locals: { document: @document }%>

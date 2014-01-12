@@ -1,0 +1,33 @@
+<%= form_for(document, html: { class: 'uk-form uk-form-stacked' }) do |f| %>
+    <%= f.hidden_field :kind_of_document %>
+    <div class="uk-form-row">
+        <%= f.label :title, class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+            <%= f.text_field :title, placeholder: 'Document title', class: 'uk-form-large' %>
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <%= f.label :description, class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+            <%= f.text_area :description, placeholder: 'Type a description to your document', rows: 5, cols: 50 %>
+        </div>
+    </div>
+    <% if document.kind_of_document == :file %>
+        <div class="uk-form-row">
+            <%= f.label :file, class: 'uk-form-label' %>
+            <div class="uk-form-controls">
+                <%= f.file_field :file, class: 'uk-form-large' %>                
+            </div>
+        </div>
+    <% elsif document.kind_of_document == :markdown %>
+        <div class="uk-form-row">
+            <%= f.label :content, class: 'uk-form-label' %>
+            <div class="uk-form-controls">
+                <%= f.text_area :content, rows: 5, cols: 50 %>
+            </div>
+        </div>
+    <% end %>
+    <div class="uk-form-row">
+        <%= f.submit 'Store', class: 'uk-button uk-button-large uk-button-primary'%>
+    </div>
+<% end %>

@@ -7,6 +7,10 @@ Galex::Application.routes.draw do
   match 'signout', to: 'user_sessions#destroy', via: :delete
   match '/documents/:id/download', to: 'documents#download', via: :get, as: :download_document
   match '/documents/:id/upload', to: 'documents#upload', via: :get, as: :upload_document
+  match '/documents/new/markdown', to: 'documents#new_markdown', via: :get, as: :new_markdown_document
+  match '/documents/:id/upload/file', to: 'documents#upload_file', via: :get, as: :update_document_with_file
+  match '/documents/:id/upload/file', to: 'documents#commit_upload_file', via: :post, as: :commit_document_update_with_file
+  match '/documents/:id/upload/markdown', to: 'documents#upload_markdown', via: :get, as: :update_document_with_markdown
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

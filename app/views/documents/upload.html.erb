@@ -1,0 +1,13 @@
+<h1>Updating document '<%= @document.title %>'</h1>
+<center>
+    <p>How do you want to update this document?</p>
+    <div class="uk-button-group">
+        <%= link_to update_document_with_file_path(@document), class: 'uk-button uk-button-large uk-button-primary' do %>
+            <i class="uk-icon-cloud-upload"></i> Upload a file from my computer
+        <% end %>
+        
+        <%= link_to update_document_with_markdown_path(@document), class: 'uk-button uk-button-large uk-button-primary' do %>
+            <i class="uk-icon-pencil"></i> Write a new document online
+        <% end %>
+    </div>
+</center>
