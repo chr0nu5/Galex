@@ -1,0 +1,25 @@
+<h1>Overwriting document '<%= @document.title %>' with a new file</h1>
+<div class="uk-alert uk-alert-large uk-alert-warning">
+    <h2>Read carefully before continuing:</h2>
+    <p>You're about to overwrite a file from the document's repository. Please notice that this version of Galex you're using
+        does not support versioning, which means that the old version of this document will be completely overwritten with
+        the version you're about to upload.</p>
+    <p>Given this fact, be aware that no rollback or undo is possible, and the actual version of the document will be permanently lost.</p>
+</div>
+<%= render partial: 'partials/form_errors', locals: { model: @document }%>
+<%= form_for @document, 
+    url: commit_document_update_with_markdown_path(@document), 
+    method: :post, 
+    html: { class: 'uk-form uk-form-stacked' } do |f| %>
+    
+    <%= f.hidden_field :kind_of_document %>
+    <div class="uk-form-row">
+        <%= f.label :content, class: 'uk-form-label' %>
+        <div class="uk-form-controls">
+            <%= f.text_area :content, class: 'uk-form-large', data: { uk_markdownarea: '' } %>
+        </div>
+    </div>
+    <div class="uk-form-row">
+        <%= f.submit 'Update', class: 'uk-button uk-button-large uk-button-primary' %>
+    </div>
+<% end %>

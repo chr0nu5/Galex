@@ -1,4 +1,4 @@
-<%= form_for(document, html: { class: 'uk-form uk-form-stacked' }) do |f| %>
+<%= form_for(document, url: @post_to, html: { class: 'uk-form uk-form-stacked' }) do |f| %>
     <%= f.hidden_field :kind_of_document %>
     <div class="uk-form-row">
         <%= f.label :title, class: 'uk-form-label' %>
@@ -23,7 +23,7 @@
         <div class="uk-form-row">
             <%= f.label :content, class: 'uk-form-label' %>
             <div class="uk-form-controls">
-                <%= f.text_area :content, rows: 5, cols: 50 %>
+                <%= f.text_area :content, rows: 5, cols: 50, data: { uk_markdownarea: '' } %>
             </div>
         </div>
     <% end %>

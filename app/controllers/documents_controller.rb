@@ -1,3 +1,6 @@
+require 'rdiscount'
+require 'pdfkit'
+
 class DocumentsController < ApplicationController
   before_filter :require_auth 
  
@@ -13,6 +16,26 @@ class DocumentsController < ApplicationController
   
   def new 
     @document = current_user.documents.build(kind_of_document: :file)
+  end
+  
+  def new_markdown
+    @document = current_user.documents.build(kind_of_document: :markdown)
+    @post_to = commit_markdown_document_path
+    render :new
+  end
+  
+  def commit_markdown
+    @document = current_user.documents.build(document_markdown_params)
+    unless @document.save!
+      render :new
+    else
+      @document.readers.append current_user
+      html = RDiscount.new(@document.content).to_html
+      kit = PDFKit.new(html)
+      kit.stylesheets << stylesheet_path("uikit.almost-flat")
+      file = kit.to_file(document_path(@document))
+      redirect_to @document
+    end
   end
   
   def create
@@ -55,6 +78,28 @@ class DocumentsController < ApplicationController
   
   def upload
     @document = current_user.documents.find(params[:id])
+  end
+  
+  def upload_markdown
+    @document = current_user.documents.find(params[:id])
+    @document.kind_of_document = :markdown
+  end
+  
+  def commit_upload_markdown
+    @document = current_user.documents.find(params[:id])
+    @document.kind_of_document = :markdown
+    @document.content = params[:document][:content]
+    unless @document.valid?
+      render :upload_markdown
+    else
+      @document.touch
+      @document.reads.where.not(user_id: @document.user_id).destroy_all
+      html = RDiscount.new(@document.content).to_html
+      kit = PDFKit.new(html)
+      kit.stylesheets << stylesheet_path("uikit.almost-flat")
+      file = kit.to_file(document_path(@document))
+      redirect_to @document
+    end
   end
   
   def upload_file
@@ -111,6 +156,10 @@ class DocumentsController < ApplicationController
   
   def handle_io_operations document
     FileUtils.mv(document.file.tempfile.to_path.to_s, document_path(document))
+  end
+  
+  def stylesheet_path name
+    File.join(Rails.root, "vendor", "assets", "stylesheets", "#{name}.css")
   end
   
   
