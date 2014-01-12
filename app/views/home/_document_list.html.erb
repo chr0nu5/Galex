@@ -1,5 +1,5 @@
 <% if list.any? %>
-    <table class="uk-table uk-table-hover- uk-table-striped">
+    <table class="uk-table uk-table-hover uk-table-striped">
         <thead>
             <tr>
                 <th>Title</th>
@@ -13,9 +13,9 @@
             <tr>
                 <td><%= link_to document.title, document %></td>
                 <td><%= link_to document.user.pretty_name, document.user %></td>
-                <td><span class="uk-text-<%= (current_user.has_read?(document) ? 'success' : 'danger') %>">
-                    <i class="uk-icon-<%=(current_user.has_read?(document) ? 'check-' : '') %>square"></i>
-                    <%= (current_user.has_read?(document) ? 'Read' : 'Unread') %>
+                <td><span class="uk-text-<%= (unread.include?(document) ? 'danger' : 'success') %>">
+                    <i class="uk-icon-<%=(unread.include?(document) ? '' : 'check-') %>square"></i>
+                    <%= (unread.include?(document) ? 'Unread' : 'Read') %>
                 </span></td>
                 <td><abbr title="<%= document.updated_at %>"><%= time_ago_in_words(document.updated_at) %></abbr>
             </tr>
