@@ -43,3 +43,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'rdiscount'
+
+gem 'wkhtmltopdf-binary'
+gem 'pdfkit'
