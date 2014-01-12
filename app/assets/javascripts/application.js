@@ -14,4 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require uikit
+//= require codemirror
+//= require codemirror-markdown
+//= require codemirror-overlay
+//= require codemirror-xml
+//= require codemirror-gfm
+//= require marked
+//= require uikit-markdownarea
 //= require_tree .
